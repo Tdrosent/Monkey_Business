@@ -42,14 +42,14 @@ for k = 1:2
 
     for i = 1:length(TimeData)
         if i ==1
-            if TimeData(i,1) ~= 0              
+            if TimeData(i,1) ~= 0
                 newTimeData(i,1) = 0;
                 newTimeData(i,2) = TimeData(i,1);
                 newCalls{end+1} = 'unvoiced';
-                
+
                 newTimeData = [newTimeData;TimeData(i,1),TimeData(i,2)];
                 newCalls{end+1} = Call{i};
-                
+
             else
                 newTimeData(i,1) = TimeData(i,1);
                 newTimeData(i,2) = TimeData(i,2);
@@ -60,12 +60,12 @@ for k = 1:2
                 newCalls{end+1} = 'unvoiced';
             end
         else
-            
-            
-            if i ~= length(TimeData) && TimeData(i,2) ~= TimeData(i+1,1)                
+
+
+            if i ~= length(TimeData) && TimeData(i,2) ~= TimeData(i+1,1)
                 newTimeData = [newTimeData;TimeData(i,1),TimeData(i,2)];
                 newCalls{end+1} = Call{i};
-                
+
                 newTimeData = [newTimeData;TimeData(i,2),TimeData(i+1,1)];
                 newCalls{end+1} = 'unvoiced';
             else
@@ -83,12 +83,10 @@ for k = 1:2
         %to the end of 010. By adding the last time value in 010 this
         %should fix it
         newTime063 = newTimeData+newTime010(end);
-    end        
+    end
 end
 
 trainMarkers = [ newCalls010;newCalls063];
-
-
 
 timeData = [newTime010;newTime063];
 
