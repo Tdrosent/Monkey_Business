@@ -17,7 +17,7 @@ TotalCallsDir = {wavFileStruct.name}';
 hpFilt = designfilt('highpassiir','FilterOrder',8, 'PassbandFrequency',3000,'PassbandRipple',0.2, 'SampleRate',fs);
 
 % find call sample range
-for k = 2:length(wavFileStruct)
+for k = 1:length(wavFileStruct)
     try
         currentFile = wavFileStruct(k).name;
         fileNum = currentFile(5:end-4);
@@ -123,13 +123,14 @@ for k = 2:length(wavFileStruct)
         for i = 1:length(tsikStringTimes)
             tsikStringCalls = [tsikStringCalls; audio(tsikStringTimes(i,1):tsikStringTimes(i,2),:)];
         end
-        HPFtsikStringCalls = filtfilt(hpFilt,tsikStringCalls);
-        AvergedHPFtsikStringCalls = 1/2*(HPFtsikStringCalls(:,1)+HPFtsikStringCalls(:,2));
-        AveragedHPFtsikCallsTrain = AvergedHPFtsikStringCalls(1:floor(end*.8));
-        AveragedHPFtsikCallsTest = AvergedHPFtsikStringCalls(ceil(end*.8):end);
-        audiowrite(strcat('../../../Data/SeperatedData/Training/tsikStringCallsTrain',fileNum,'.wav'),AveragedHPFtsikCallsTrain,fs);
-        audiowrite(strcat('../../../Data/SeperatedData/Testing/tsikStringCallsTest',fileNum,'.wav'),AveragedHPFtsikCallsTest,fs);
-        
+        if ~isempty(tsikStringCalls)
+            HPFtsikStringCalls = filtfilt(hpFilt,tsikStringCalls);
+            AvergedHPFtsikStringCalls = 1/2*(HPFtsikStringCalls(:,1)+HPFtsikStringCalls(:,2));
+            AveragedHPFtsikCallsTrain = AvergedHPFtsikStringCalls(1:floor(end*.8));
+            AveragedHPFtsikCallsTest = AvergedHPFtsikStringCalls(ceil(end*.8):end);
+            audiowrite(strcat('../../../Data/SeperatedData/Training/tsikStringCallsTrain',fileNum,'.wav'),AveragedHPFtsikCallsTrain,fs);
+            audiowrite(strcat('../../../Data/SeperatedData/Testing/tsikStringCallsTest',fileNum,'.wav'),AveragedHPFtsikCallsTest,fs);
+        end
         % phee
         pheeCalls = [];
         for i = 1:length(pheeTimes)
