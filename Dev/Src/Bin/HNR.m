@@ -5,7 +5,7 @@ shift       = 125;
 frameStart  = 1;
 frameStop	= windowSize;
 frameIdx    = 1;
-hnrThresh   = 0.3;
+hnrThresh   = 0.6;
 w           = hamming(windowSize);
 
 % read audio signal
@@ -20,7 +20,7 @@ audioIn = filtfilt(hpFilt,audioIn);
 
 % plot the spectrogram
 spectrogram(audioIn,windowSize,windowSize/2,2048,Fs,'yaxis');
-colormap(spring);
+colormap(jet);
 
 % initialize the output signal
 harmonicSignal = [];
@@ -31,7 +31,7 @@ while frameStop < length(audioIn)
     hnr = harmonicRatio(audioIn(frameStart:frameStop),fs);
     
     if hnr > hnrThresh
-        harmonicSignal = [harmonicSignal, audioIn(frameStart:frameStop)]; %#ok<AGROW>
+        harmonicSignal = [harmonicSignal; audioIn(frameStart:frameStop)]; %#ok<AGROW>
     end
     
     % increment counters
@@ -42,4 +42,4 @@ end
 
 % write out harmonic signal output
 
-audiowrite('HarmonicOutput.wav',Fs)
+audiowrite('HarmonicOutput.wav',harmonicSignal,Fs)
