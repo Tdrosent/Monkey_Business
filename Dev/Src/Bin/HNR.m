@@ -8,8 +8,12 @@ frameIdx    = 1;
 hnrThresh   = 0.6;
 w           = hamming(windowSize);
 
+% decalre datapath and file name
+dataPath = '../../../../data/SeperatedData/Testing';
+fileName = 'peepCallsTest006.wav'
+
 % read audio signal
-[audioIn,fs]= audioread('STE-063.wav');
+[audioIn,fs]= audioread(strcat(dataPath,'/',fileName));
 
 % average both channels
 audioIn = mean(audioIn,2);
