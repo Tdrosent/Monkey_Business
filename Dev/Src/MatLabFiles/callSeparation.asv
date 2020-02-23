@@ -88,7 +88,7 @@ for k = 1:length(wavFileStruct)
             AveragedHPFpeepCallsTrain = AvergedHPFpeepCalls(1:floor(end*.8));
             AveragedHPFpeepCallsTest = AvergedHPFpeepCalls(ceil(end*.8):end);
             audiowrite(strcat(dataPath,'/SeperatedData/Training/peepCallsTrain',fileNum,'.wav'),AveragedHPFpeepCallsTrain,fs);
-            audiowrite(strcat(dataPath,'/SeperatedData/Testing/peepCallsTest',fileNum,'.wav'),AveragedHPFpeepCallsTest,fs);
+            audiowrite(strcat(basePath,'/SeperatedData/Testing/peepCallsTest',fileNum,'.wav'),AveragedHPFpeepCallsTest,fs);
         end
         
         % peep string
@@ -101,8 +101,8 @@ for k = 1:length(wavFileStruct)
             AvergedHPFpeepStringCalls = 1/2*(HPFpeepStringCalls(:,1)+HPFpeepStringCalls(:,2));
             AveragedHPFpeepStringCallsTrain = AvergedHPFpeepStringCalls(1:floor(end*.8));
             AveragedHPFpeepStringCallsTest = AvergedHPFpeepStringCalls(ceil(end*.8):end);
-            audiowrite(strcat(dataPath,'/SeperatedData/Training/peepStringCallsTrain',fileNum,'.wav'),AveragedHPFpeepStringCallsTrain,fs);
-            audiowrite(strcat(dataPath,'/SeperatedData/Testing/peepStringCallsTest',fileNum,'.wav'),AveragedHPFpeepStringCallsTest,fs);
+            audiowrite(strcat(basePath,'/SeperatedData/Training/peepStringCallsTrain',fileNum,'.wav'),AveragedHPFpeepStringCallsTrain,fs);
+            audiowrite(strcat(basePath,'/SeperatedData/Testing/peepStringCallsTest',fileNum,'.wav'),AveragedHPFpeepStringCallsTest,fs);
         end
         % twitter
         twitterCalls = [];
@@ -114,8 +114,8 @@ for k = 1:length(wavFileStruct)
             AvergedHPFtwitterCalls = 1/2*(HPFtwitterCalls(:,1)+HPFtwitterCalls(:,2));
             AveragedHPFtwitterCallsTrain = AvergedHPFtwitterCalls(1:floor(end*.8));
             AveragedHPFtwitterCallsTest = AvergedHPFtwitterCalls(ceil(end*.8):end);
-            audiowrite(strcat(dataPath,'/SeperatedData/Training/twitterCallsTrain',fileNum,'.wav'),AveragedHPFtwitterCallsTrain,fs);
-            audiowrite(strcat(dataPath,'/SeperatedData/Testing/twitterCallsTest',fileNum,'.wav'),AveragedHPFtwitterCallsTest,fs);
+            audiowrite(strcat(basePath,'/SeperatedData/Training/twitterCallsTrain',fileNum,'.wav'),AveragedHPFtwitterCallsTrain,fs);
+            audiowrite(strcat(basePath,'/SeperatedData/Testing/twitterCallsTest',fileNum,'.wav'),AveragedHPFtwitterCallsTest,fs);
         end
         % tsik
         tsikCalls = [];
@@ -127,8 +127,8 @@ for k = 1:length(wavFileStruct)
             AvergedHPFtsikCalls = 1/2*(HPFtsikCalls(:,1)+HPFtsikCalls(:,2));
             AveragedHPFtsikCallsTrain = AvergedHPFtsikCalls(1:floor(end*.8));
             AveragedHPFtsikCallsTest = AvergedHPFtsikCalls(ceil(end*.8):end);
-            audiowrite(strcat(dataPath,'/SeperatedData/Training/tsikCallsTrain',fileNum,'.wav'),AveragedHPFtsikCallsTrain,fs);
-            audiowrite(strcat(dataPath,'/SeperatedData/Testing/tsikCallsTest',fileNum,'.wav'),AveragedHPFtsikCallsTest,fs);
+            audiowrite(strcat(basePath,'/SeperatedData/Training/tsikCallsTrain',fileNum,'.wav'),AveragedHPFtsikCallsTrain,fs);
+            audiowrite(strcat(basePath,'/SeperatedData/Testing/tsikCallsTest',fileNum,'.wav'),AveragedHPFtsikCallsTest,fs);
         end
         
         % tsik string
@@ -141,8 +141,8 @@ for k = 1:length(wavFileStruct)
             AvergedHPFtsikStringCalls = 1/2*(HPFtsikStringCalls(:,1)+HPFtsikStringCalls(:,2));
             AveragedHPFtsikCallsTrain = AvergedHPFtsikStringCalls(1:floor(end*.8));
             AveragedHPFtsikCallsTest = AvergedHPFtsikStringCalls(ceil(end*.8):end);
-            audiowrite(strcat(dataPath,'/SeperatedData/Training/tsikStringCallsTrain',fileNum,'.wav'),AveragedHPFtsikCallsTrain,fs);
-            audiowrite(strcat(dataPath,'/SeperatedData/Testing/tsikStringCallsTest',fileNum,'.wav'),AveragedHPFtsikCallsTest,fs);
+            audiowrite(strcat(basePath,'/SeperatedData/Training/tsikStringCallsTrain',fileNum,'.wav'),AveragedHPFtsikCallsTrain,fs);
+            audiowrite(strcat(basePath,'/SeperatedData/Testing/tsikStringCallsTest',fileNum,'.wav'),AveragedHPFtsikCallsTest,fs);
         end
         % phee
         pheeCalls = [];
@@ -154,8 +154,8 @@ for k = 1:length(wavFileStruct)
             AvergedHPFpheeCalls = 1/2*(HPFpheeCalls(:,1)+HPFpheeCalls(:,2));
             AveragedHPFpheeCallsTrain = AvergedHPFpheeCalls(1:floor(end*.8));
             AveragedHPFpheeCallsTest = AvergedHPFpheeCalls(ceil(end*.8):end);
-            audiowrite(strcat(dataPath,'/SeperatedData/Training/pheeCallsTrain',fileNum,'.wav'),AveragedHPFpheeCallsTrain,fs);
-            audiowrite(strcat(dataPath,'/SeperatedData/Testing/pheeCallsTest',fileNum,'.wav'),AveragedHPFpheeCallsTest,fs);
+            audiowrite(strcat(basePath,'/SeperatedData/Training/pheeCallsTrain',fileNum,'.wav'),AveragedHPFpheeCallsTrain,fs);
+            audiowrite(strcat(basePath,'/SeperatedData/Testing/pheeCallsTest',fileNum,'.wav'),AveragedHPFpheeCallsTest,fs);
         end
         % combo
         comboCalls = [];
@@ -167,8 +167,8 @@ for k = 1:length(wavFileStruct)
             AvergedHPFcomboCalls = 1/2*(HPFcomboCalls(:,1)+HPFcomboCalls(:,2));
             AveragedHPFcomboCallsTrain = AvergedHPFcomboCalls(1:floor(end*.8));
             AveragedHPFcomboCallsTest = AvergedHPFcomboCalls(ceil(end*.8):end);
-            audiowrite(strcat(dataPath,'/SeperatedData/Training/comboCallsTrain',fileNum,'.wav'),AveragedHPFcomboCallsTrain,fs);
-            audiowrite(strcat(dataPath,'/SeperatedData/Testing/comboCallsTest',fileNum,'.wav'),AveragedHPFcomboCallsTest,fs);
+            audiowrite(strcat(basePath,'/SeperatedData/Training/comboCallsTrain',fileNum,'.wav'),AveragedHPFcomboCallsTrain,fs);
+            audiowrite(strcat(basePath,'/SeperatedData/Testing/comboCallsTest',fileNum,'.wav'),AveragedHPFcomboCallsTest,fs);
         end
         % trill
         trillCalls = [];
@@ -180,8 +180,8 @@ for k = 1:length(wavFileStruct)
             AvergedHPFtrillCalls = 1/2*(HPFtrillCalls(:,1)+HPFtrillCalls(:,2));
             AveragedHPFtrillCallsTrain = AvergedHPFtrillCalls(1:floor(end*.8));
             AveragedHPFtrillCallsTest = AvergedHPFtrillCalls(ceil(end*.8):end);
-            audiowrite(strcat(dataPath,'/SeperatedData/Training/trillCallsTrain',fileNum,'.wav'),AveragedHPFtrillCallsTrain,fs);
-            audiowrite(strcat(dataPath,'/SeperatedData/Testing/trillCallsTest',fileNum,'.wav'),AveragedHPFtrillCallsTest,fs);
+            audiowrite(strcat(basePath,'/SeperatedData/Training/trillCallsTrain',fileNum,'.wav'),AveragedHPFtrillCallsTrain,fs);
+            audiowrite(strcat(basePath,'/SeperatedData/Testing/trillCallsTest',fileNum,'.wav'),AveragedHPFtrillCallsTest,fs);
         end
         % create noVoice audio
         noVoiceCalls = audio;
@@ -195,8 +195,8 @@ for k = 1:length(wavFileStruct)
             AvergedHPFnoVoiceCalls = 1/2*(HPFnoVoiceCalls(:,1)+HPFnoVoiceCalls(:,2));
             AveragedHPFnoVoiceCallsTrain = AvergedHPFnoVoiceCalls(1:floor(end*.8));
             AveragedHPFnoVoiceCallsTest = AvergedHPFnoVoiceCalls(ceil(end*.8):end);
-            audiowrite(strcat(dataPath,'/SeperatedData/Training/noVoiceCallsTrain',fileNum,'.wav'),AveragedHPFnoVoiceCallsTrain,fs);
-            audiowrite(strcat(dataPath,'/SeperatedData/Testing/noVoiceCallsTest',fileNum,'.wav'),AveragedHPFnoVoiceCallsTest,fs);
+            audiowrite(strcat(basePath,'/SeperatedData/Training/noVoiceCallsTrain',fileNum,'.wav'),AveragedHPFnoVoiceCallsTrain,fs);
+            audiowrite(strcat(basePath,'/SeperatedData/Testing/noVoiceCallsTest',fileNum,'.wav'),AveragedHPFnoVoiceCallsTest,fs);
         end
     catch exception
         throw(exception)
