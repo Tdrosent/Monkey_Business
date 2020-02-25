@@ -8,9 +8,15 @@ frameIdx    = 1;
 hnrThresh   = 0.5;
 w           = hamming(windowSize);
 
+% make directories if they don't exist
+if ~exist('../../../Data/Results')
+    mkdir('../../../Data/Results')
+end
+   
 % decalre datapath and file name
-dataPath = '../../../../data/SeperatedData/Testing';
-fileName = 'peepCallsTest006.wav'
+dataPath = '../../../Data/SeperatedData/Testing';
+resultsPath = '../../../Data/Results/';
+fileName = 'peepCallsTest006.wav';
 
 % read audio signal
 [audioIn,fs]= audioread(strcat(dataPath,'/',fileName));
@@ -46,4 +52,4 @@ end
 
 % write out harmonic signal output
 
-audiowrite('HarmonicOutput.wav',harmonicSignal,Fs)
+audiowrite(strcat(resultsPath,'HarmonicOutput.wav'),harmonicSignal,Fs)

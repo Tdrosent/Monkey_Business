@@ -4,7 +4,7 @@ fs = 96000;
 % mkdir('NEEDED/Testing')
 
 basePath = '../../../Data';
-dataPath = '../../../../data';
+dataPath = '../../../Data';
 addpath(basePath)
 
 DataDir = char(dataPath);
