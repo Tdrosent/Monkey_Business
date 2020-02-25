@@ -5,7 +5,7 @@ shift       = 125;
 frameStart  = 1;
 frameStop	= windowSize;
 frameIdx    = 1;
-hnrThresh   = 0.6;
+hnrThresh   = 0.5;
 w           = hamming(windowSize);
 
 % decalre datapath and file name
