@@ -25,7 +25,7 @@ for i = 1:N_cycles
     frameStart = 1;
     frameStop = W;
     frameIdx = 1;
-    w = hamming(W);
+    w = window(@blackmanharris,W);
     
     %Read audio file
     samples = [460*Fs 475*Fs];
@@ -41,21 +41,17 @@ for i = 1:N_cycles
     
     %HPF to omit LF noise
     HPF = designfilt('highpassiir','FilterOrder',8, 'PassbandFrequency',3000,'PassbandRipple',0.2, 'SampleRate',Fs);
-    in = filtfilt(HPF, in);
+%     in = filtfilt(HPF, in);
     
     %Initialize variables
     HPS = zeros(length(in),1);
     HPS_Frame = HPS;
-    X1 = [];
-    X2 = [];
-    X3 = [];
-    X4 = [];
     
     while frameStop < length(in)
         
         %Harmonic Product Sum
         Xwindowed = in(frameStart:frameStop).*w;
-        X1 = (abs(fft(Xwindowed))).^2;
+        X1 = (fft(Xwindowed));
         %X1 = (abs(fft(Xwindowed))).^2/length(in);
         
         %Declare R value
@@ -64,21 +60,22 @@ for i = 1:N_cycles
         XP_den = upsample(X1,2);    
         XP_den = downsample(XP_den,3);
         
-        for i = 2:R
-            XP_temp = downsample(X1,i);
-            XP_num = XP_num.*[XP_temp;zeros(length(X1)-length(XP_temp),1)];
-            
-            %Upsample then downsample to get half downsample intervals
-            XP_temp2 = upsample(X1,2);
-            XP_temp3 = downsample(XP_temp2,2*i+1);
-            XP_temp4 = [XP_temp3;zeros((length(X1)-length(XP_temp3)), 1)];
-            XP_den = XP_temp4.*[XP_den;zeros((length(X1)-length(XP_den)), 1)]; 
-            
-        end
+%         for i = 2:R
+%             XP_temp = downsample(X1,i);
+%             XP_num = XP_num.*[XP_temp;zeros(length(X1)-length(XP_temp),1)];
+%             
+%             %Upsample then downsample to get half downsample intervals
+%             XP_temp2 = upsample(X1,2);
+%             XP_temp3 = downsample(XP_temp2,2*i+1);
+%             XP_temp4 = [XP_temp3;zeros((length(X1)-length(XP_temp3)), 1)];
+%             XP_den = XP_temp4.*[XP_den;zeros((length(X1)-length(XP_den)), 1)]; 
+%             
+%         end
         
-        HPS_Frame(frameStart:frameStop) = XP_num./XP_den;
+        HPS_Frame(frameStart:frameStop) = ifft(X1);%XP_num;%./XP_den;
         HPS = HPS + HPS_Frame;
-        HPS_Frame = HPS_Frame.*0;
+%         HPS(frameStart:frameStop) = ifft(X1);
+        HPS_Frame = HPS_Frame*0;
 
         %Shift window and increase index
         frameStart = frameStart + shift;
@@ -87,11 +84,13 @@ for i = 1:N_cycles
     end
 end
 
-HPS(isnan(HPS)) = 0;
-HPS_ifft = ifft(HPS);
+% HPS(isinf(HPS)) = max(HPS);
+% HPS(isnan(HPS)) = 0;
+% HPS_ifft = idct(HPS);
+% HPS_ifft = HPS_ifft/max(HPS_ifft);
 %Plot spectrograms
 spectrogram(in,W,W/2,Fs,'yaxis');
 colormap(jet);
 figure()
-spectrogram(HPS_ifft,W,W/2,W,Fs,'yaxis');
+spectrogram(HPS,W,W/2,Fs,'yaxis');
 colormap(jet);
