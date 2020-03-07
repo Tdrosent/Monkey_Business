@@ -1,0 +1,24 @@
+../../../Data/OMSLA-SNR-Calculation-Files/comboCallsTrain063-Before-OMSLA SNR: -24.645578,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/comboCallsTrain063-After-OMSLA SNR: -24.590096,
+ improvement: 0.055482
+
+../../../Data/OMSLA-SNR-Calculation-Files/noVoiceCallsTrain063-Before-OMSLA SNR: -28.977140,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/noVoiceCallsTrain062-After-OMSLA SNR: -26.805875,
+ improvement: 2.171265
+
+../../../Data/OMSLA-SNR-Calculation-Files/peepCallsTrain063-Before-OMSLA SNR: -24.340737,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/peepCallsTrain063-After-OMSLA SNR: -24.272304,
+ improvement: 0.068433
+
+../../../Data/OMSLA-SNR-Calculation-Files/pheeCallsTrain063-Before-OMSLA SNR: -20.642118,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/pheeCallsTrain063-After-OMSLA SNR: -20.583845,
+ improvement: 0.058273
+
+../../../Data/OMSLA-SNR-Calculation-Files/trillCallsTrain063-Before-OMSLA SNR: -22.023286,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/trillCallsTrain063-After-OMSLA SNR: -22.102499,
+ improvement: 0.079213
+
+../../../Data/OMSLA-SNR-Calculation-Files/tsikCallsTrain063-Before-OMSLA SNR: -32.165536,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/tsikCallsTrain063-After-OMSLA SNR: -32.159946,
+ improvement: 0.005590
+
