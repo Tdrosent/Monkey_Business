@@ -25,7 +25,7 @@ shift = W/2;
 frameStart = 1;
 frameStop = W;
 frameIdx = 1;
-w = kaiser(W, 15);
+w = kaiser(W, 12);
 freq_incr = 300;
 
 %Read audio file
@@ -103,8 +103,13 @@ colormap(jet);
 figure()
 spectrogram(HPS,W,W/2,Fs,'yaxis');
 colormap(jet);
-figure()
-spectrogram(HPS,W,W/2,W,Fs,'reassign','MinThreshold',-80,'yaxis')
+% figure()
+[~,~,~,pxx,fc,tc] = spectrogram(HPS,W,W/2,W,Fs,'reassign','MinThreshold',-80,'yaxis');
 colormap(jet);
 
-audiowrite('clean.wav',HPS,Fs)
+figure()
+plot(tc(pxx>0),fc(pxx>0),'.')
+ylim([0, Fs/2]);
+xlim([0, 4]);
+
+% audiowrite('clean.wav',HPS,Fs)
