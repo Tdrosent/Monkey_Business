@@ -29,4 +29,5 @@ for i = 1:length(TotalCallsDir)
     %Second pass through omlsa
     omlsa(strcat(FirstPassPath,TotalCallsDir{i}(1:end-4),'-FirstPass'),...
         strcat(SecondPassPath,TotalCallsDir{i}(1:end-4),'-SecondPass'));
+    disp(strcat('Run','- ', num2str(i),'/',num2str(length(TotalCallsDir)), ' completed'));
 end
