@@ -1,0 +1,36 @@
+../../../Data/OMSLA-SNR-Calculation-Files/comboCallsTrain063-Before-OMSLA SNR: -24.645578,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/FirstPass/comboCallsTrain063-After-OMSLA SNR: -24.590096,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/SecondPass/comboCallsTrain063-After-OMSLA-2 SNR: -24.584944,
+ improvement(First pass): 0.055482
+ improvement(Second pass): 0.060634
+
+../../../Data/OMSLA-SNR-Calculation-Files/noVoiceCallsTrain063-Before-OMSLA SNR: -28.977140,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/FirstPass/noVoiceCallsTrain062-After-OMSLA SNR: -26.805875,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/SecondPass/noVoiceCallsTrain062-After-OMSLA-2 SNR: -26.795295,
+ improvement(First pass): 2.171265
+ improvement(Second pass): 2.181845
+
+../../../Data/OMSLA-SNR-Calculation-Files/peepCallsTrain063-Before-OMSLA SNR: -24.340737,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/FirstPass/peepCallsTrain063-After-OMSLA SNR: -24.272304,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/SecondPass/peepCallsTrain063-After-OMSLA-2 SNR: -24.271530,
+ improvement(First pass): 0.068433
+ improvement(Second pass): 0.069207
+
+../../../Data/OMSLA-SNR-Calculation-Files/pheeCallsTrain063-Before-OMSLA SNR: -20.642118,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/FirstPass/pheeCallsTrain063-After-OMSLA SNR: -20.583845,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/SecondPass/pheeCallsTrain063-After-OMSLA-2 SNR: -20.567935,
+ improvement(First pass): 0.058273
+ improvement(Second pass): 0.074183
+
+../../../Data/OMSLA-SNR-Calculation-Files/trillCallsTrain063-Before-OMSLA SNR: -22.023286,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/FirstPass/trillCallsTrain063-After-OMSLA SNR: -22.102499,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/SecondPass/trillCallsTrain063-After-OMSLA-2 SNR: -22.116225,
+ improvement(First pass): 0.079213
+ improvement(Second pass): 0.092939
+
+../../../Data/OMSLA-SNR-Calculation-Files/tsikCallsTrain063-Before-OMSLA SNR: -32.165536,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/FirstPass/tsikCallsTrain063-After-OMSLA SNR: -32.159946,
+ ../../../Data/OMSLA-SNR-Calculation-Files/After/SecondPass/tsikCallsTrain063-After-OMSLA-2 SNR: -32.156996,
+ improvement(First pass): 0.005590
+ improvement(Second pass): 0.008540
+
