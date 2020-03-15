@@ -92,9 +92,9 @@ while frameStop < length(in)
     frameIdx = frameIdx + 1;
 end
 
-figure()
-HPS_Max_FFT = fft(HPS_Max);
-plot([1:length(HPS_Max_FFT)],real(HPS_Max_FFT));
+% figure()
+% HPS_Max_FFT = fft(HPS_Max);
+% plot([1:length(HPS_Max_FFT)],real(HPS_Max_FFT));
     
 %Plot spectrograms
 figure()
@@ -105,11 +105,12 @@ spectrogram(HPS,W,W/2,Fs,'yaxis');
 colormap(jet);
 % figure()
 [~,~,~,pxx,fc,tc] = spectrogram(HPS,W,W/2,W,Fs,'reassign','MinThreshold',-80,'yaxis');
-colormap(jet);
+% spectrogram(HPS,W,W/2,W,Fs,'reassign','MinThreshold',-90,'yaxis');
+% colormap(jet);
 
 figure()
 plot(tc(pxx>0),fc(pxx>0),'.')
 ylim([0, Fs/2]);
-xlim([0, 4]);
+% xlim([0, 5]);
 
 % audiowrite('clean.wav',HPS,Fs)

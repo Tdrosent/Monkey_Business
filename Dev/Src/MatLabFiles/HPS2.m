@@ -54,7 +54,7 @@ while frameStop < length(in)
 %         Xwindowed = filtfilt(LPF, in(frameStart:frameStop));
     Xwindowed = in(frameStart:frameStop).*w;
     X1 = (fft(Xwindowed));
-    %X1 = (abs(fft(Xwindowed))).^2/length(in);
+    X1 = (abs(fft(Xwindowed))).^2/length(in);
 
     %Declare R value
     R = Harm;
