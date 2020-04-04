@@ -29,7 +29,7 @@ w = kaiser(W, 12);
 freq_incr = 300;
 
 %Read audio file
-samples = [(27*60+27)*Fs (27*60+31)*Fs];
+samples = [(0*60+3)*Fs (0*60+8)*Fs];
 [in,fs] = audioread(orig,samples);
 
 f=Fs*(0:(length(in)/2))/length(in);
@@ -97,20 +97,24 @@ end
 % plot([1:length(HPS_Max_FFT)],real(HPS_Max_FFT));
     
 %Plot spectrograms
-figure()
-spectrogram(in,W,W/2,Fs,'yaxis');
-colormap(jet);
+% figure()
+% spectrogram(in,W,W/2,Fs,'yaxis');
+% colormap(jet);
 figure()
 spectrogram(HPS,W,W/2,Fs,'yaxis');
 colormap(jet);
-% figure()
+figure()
+% [~,~,~,pxx,fc,tc] = spectrogram(HPS,W,W/2,W,Fs,'reassign','MinThreshold',-80,'yaxis');
+spectrogram(HPS,W,W/2,W,Fs,'reassign','MinThreshold',-100,'yaxis');
+colormap(jet);
+figure()
 [~,~,~,pxx,fc,tc] = spectrogram(HPS,W,W/2,W,Fs,'reassign','MinThreshold',-80,'yaxis');
-% spectrogram(HPS,W,W/2,W,Fs,'reassign','MinThreshold',-90,'yaxis');
-% colormap(jet);
+%spectrogram(HPS,W,W/2,W,Fs,'MinThreshold',-100,'yaxis');
+%colormap(jet);
 
 figure()
 plot(tc(pxx>0),fc(pxx>0),'.')
 ylim([0, Fs/2]);
-% xlim([0, 5]);
+xlim([0, 5]);
 
 % audiowrite('clean.wav',HPS,Fs)
