@@ -71,7 +71,7 @@ for k = 1:length(numCoeffsList)
 
             save(strcat(TrainingFolderName,'/Features_',num2str(numCoeffsList(k)),'mfccs_',num2str(mstimeList(j)),'ms_', CallNames{i}, '.mat'),'TrainNormFeatures')        
 
-            save(strcat(TestingFolderName,'/Features_',num2str(numCoeffsList(k)),'mfccs_',num2str(mstimeList(j)),'ms_FULL_', CallNames{i}, '.mat'),'TestNormFeatures')
+            save(strcat(TestingFolderName,'/Features_',num2str(numCoeffsList(k)),'mfccs_',num2str(mstimeList(j)),'ms_', CallNames{i}, '.mat'),'TestNormFeatures')
         end
     end
 end
