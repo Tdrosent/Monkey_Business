@@ -1,4 +1,4 @@
-function HPSFeatures(audioIn, W, Harm)
+function featureVector =HPSFeatures(audioIn, W, Harm)
 
 %--------------------------------------------------------
 % This function takes an audio input saves off a feature
@@ -7,25 +7,25 @@ function HPSFeatures(audioIn, W, Harm)
 %------------------------------------
 
 %Initialize Parameters
+fs = 96000;
 shift = W/2;
 frameStart = 1;
 frameStop = W;
 frameIdx = 1;
 w = hamming(W);
 
-[in,fs] = audioread(audioIn);
 
-in = in(1:length(in)); % in case custom samples are desired
+audioIn = audioIn(1:length(audioIn)); % in case custom samples are desired
 
 
 %Initialize variables
-HPS = zeros(length(in),1);
+HPS = zeros(length(audioIn),1);
 
 
-while frameStop < length(in)
+while frameStop < length(audioIn)
     
     %Harmonic Product Sum
-    Xwindowed = in(frameStart:frameStop).*w;
+    Xwindowed = audioIn(frameStart:frameStop).*w;
     X1 = (fft(Xwindowed));
     
     XP_num = X1;
@@ -62,5 +62,5 @@ while windowEnd < length(HPS)
     
 end
 
-save(['Features' '_HPS_' num2str(round(W*1000/fs)) 'msWindow_' num2str(Harm) 'Harmonics'],'featureVector','-v7.3')
+%save(['Features' '_HPS_' num2str(round(W*1000/fs)) 'msWindow_' num2str(Harm) 'Harmonics'],'featureVector','-v7.3')
 
