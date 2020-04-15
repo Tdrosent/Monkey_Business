@@ -40,8 +40,8 @@ for j = 1:length(windowSizeList)
     %non-normalized .mat file that will be loaded in later and normalized
     for i = 1:length(CallNames)
         TrainFeatures = [];
-        FileName = strcat(dataPath,'\',CallNames{i},'CallsTrainMaster.wav');
-        %FileName = strcat(dataPath,'\',CallNames{i},'.wav');
+        FileName = strcat(dataPathTrain,'\',CallNames{i},'CallsTrainMaster.wav');
+        %FileName = strcat(dataPathTrain,'\',CallNames{i},'.wav');
         
         TrainwaveIn = audioread(FileName);
         

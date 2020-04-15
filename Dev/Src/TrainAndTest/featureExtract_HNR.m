@@ -6,17 +6,8 @@ addpath(dataPathTrain)
 addpath(dataPathTest)
 
 fs = 96000;
-%CallNames = {'twitterCalls','pheeCalls','trillCalls'};
 CallNames      = {'peep','peepString','phee','trill', 'tsik','tsikString','twitter'};
 % CallNames      = {'DebugFile1','DebugFile2'};
-
-% for i = 1:length(CallNames)
-%         FileNameTrain = strcat(dataPathTrain,'\',CallNames{i},'CallsTrainMaster.wav');
-% %     FileNameTrain = strcat(dataPathTrain,'\',CallNames{i},'.wav');
-%     
-%     [y,~]= audioread(FileNameTrain);
-%     FullData = [FullData ; y];
-% end
 
 windowSizeList = [ 0.02, 0.05, 0.1, 0.2, 1];
 wlist = round(windowSizeList *fs);
