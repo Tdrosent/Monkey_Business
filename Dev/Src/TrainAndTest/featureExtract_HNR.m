@@ -1,25 +1,22 @@
 % feature exctraction
 function featureExtract_HNR()
-dataPath = char('../../../Data/MasterTraining');
-addpath(dataPath)
+dataPathTrain = char('../../../Data/MasterTraining');
+dataPathTest = char('../../../Data/MasterTesting');
+addpath(dataPathTrain)
+addpath(dataPathTest)
 
 fs = 96000;
 %CallNames = {'twitterCalls','pheeCalls','trillCalls'};
 CallNames      = {'peep','peepString','phee','trill', 'tsik','tsikString','twitter'};
+% CallNames      = {'DebugFile1','DebugFile2'};
 
-% Twitter1 = audioread(['NEEDED/Training/twitterCallsTrain.wav']);
-% Twitter2 = audioread(['NEEDED/Training/twitterCallsTrain2.wav']);
-% PheeCalls1 = audioread(['NEEDED/Training/pheeCallsTrain.wav']);
-% PheeCalls2 = audioread(['NEEDED/Training/pheeCallsTrain2.wav']);
-% TrillCalls1 = audioread(['NEEDED/Training/trillCallsTrain.wav']);
-% TrillCalls2 = audioread(['NEEDED/Training/trillCallsTrain2.wav']);
-% FullData = [Twitter1;Twitter2;PheeCalls1;PheeCalls2;TrillCalls1;TrillCalls2];
-FullData = [];
-for i = 1:length(CallNames)
-    FileName = strcat(dataPath,'\',CallNames{i},'CallsTrainMaster.wav');
-    [y,~]= audioread(FileName);
-    FullData = [FullData ; y];
-end
+% for i = 1:length(CallNames)
+%         FileNameTrain = strcat(dataPathTrain,'\',CallNames{i},'CallsTrainMaster.wav');
+% %     FileNameTrain = strcat(dataPathTrain,'\',CallNames{i},'.wav');
+%     
+%     [y,~]= audioread(FileNameTrain);
+%     FullData = [FullData ; y];
+% end
 
 windowSizeList = [ 0.02, 0.05, 0.1, 0.2, 1];
 wlist = round(windowSizeList *fs);
@@ -28,66 +25,58 @@ mstimeList = windowSizeList * 10^3;
 
 for j = 1:length(windowSizeList)
     TrainingFolderName = strcat('../../../Data/Features/Training/HNR',num2str(j));
-    %!!!! Will use later
-    %         TestingFolderName = strcat('../../../Data/Features/Testing/MFCC',num2str(j),num2str(k));
-    
-    %First extract the features from the Full Data, Z-Score
-    %normailization must be done on all of the data not on a call by
-    %call basis
+    TestingFolderName  = strcat('../../../Data/Features/Testing/HNR',num2str(j));
+    FullFeatures=[];
+    if ~exist(TrainingFolderName,'dir')
+        mkdir(TrainingFolderName);
+    end
+    if ~exist(TestingFolderName,'dir')
+        mkdir(TestingFolderName);
+    end
     hnrWndw = hamming(wlist(j));
-    hnr = harmonicRatio(FullData,fs,'Window',hnrWndw,'OverlapLength',wlist(j)/2);
-    FullFeatures = hnr;
+    
+    for i = 1:length(CallNames)
+        TrainFeatures = [];
+        FileName = strcat(dataPathTrain,'\',CallNames{i},'CallsTrainMaster.wav');
+        
+        TrainwaveIn = audioread(FileName);
+        
+        TrainFeatures = harmonicRatio(TrainwaveIn,fs,'Window',hnrWndw,'OverlapLength',wlist(j)/2);
+        
+        %Building up full feature set to compute normalization factors
+        FullFeatures = [FullFeatures;TrainFeatures];
+        
+    end        
+
     
     %Dynamically computing z-score Normalization factors
     mu = mean(FullFeatures);
     sigma = std(FullFeatures);
     NormalizationFactor.mu = mu;
     NormalizationFactor.sigma=sigma;
-    if ~exist(TrainingFolderName,'dir')
-        mkdir(TrainingFolderName);
-    end
+
     save(strcat(TrainingFolderName,'/Features_','HNR_',num2str(mstimeList(j)),'ms_NormalizationFactors.mat'),'NormalizationFactor')
     for i = 1:length(CallNames)
         
-        FileName = strcat(dataPath,'\',CallNames{i},'CallsTrainMaster.wav');
+        FileNameTrain = strcat(dataPathTrain,'\',CallNames{i},'CallsTrainMaster.wav');
         
-        TrainwaveIn = audioread(FileName);
+        FileNameTest = strcat(dataPathTest,'\',CallNames{i},'CallsTestMaster.wav');
         
-        % !!!!!! Still need to create testing wave files
-        %             TestwaveIn1 = audioread(['NEEDED/Testing/' waveFile 'Test.wav']);
-        %             TestwaveIn2 = audioread(['NEEDED/Testing/' waveFile 'Test2.wav']);
-        %             TestwaveIn = [TestwaveIn1;TestwaveIn2];
+        TrainwaveIn = audioread(FileNameTrain);
+
+        TestwaveIn = audioread(FileNameTest);
         
-        hnrTrain = harmonicRatio(TrainwaveIn,fs,'Window',hnrWndw,'OverlapLength',wlist(j)/2);        %             [coeffsTest,deltaTest,deltaDeltaTest] = mfcc(TestwaveIn,fs,'WindowLength',wlist(j),'OverlapLength',l(j),'NumCoeffs',numCoeffsList(k));
+        TrainFeatures = harmonicRatio(TrainwaveIn,fs,'Window',hnrWndw,'OverlapLength',wlist(j)/2); 
         
-        TrainFeatures = hnrTrain;
-        %             TestFeatures = [coeffsTest,deltaTest,deltaDeltaTest];
+        TestFeatures = harmonicRatio(TestwaveIn,fs,'Window',hnrWndw,'OverlapLength',wlist(j)/2);       
         
         % normalize the data
         TrainNormFeatures = ((TrainFeatures-mu))./sigma;
-        %             TestNormFeatures = ((TestFeatures-mu))./sigma;
-        
-        %             if ~exist(strcat(TrainingFolderName,'/Normalized/'),'dir')
-        %                 mkdir(strcat(TrainingFolderName,'/Normalized/'));
-        %             end
-        %I dont think we need to save the regular features right now
-        %             if ~exist(strcat('NEEDED/ModelsTrain/MODEL',num2str(j),num2str(k),'/Regular/'),'dir')
-        %                 mkdir(strcat('NEEDED/ModelsTrain/MODEL',num2str(j),num2str(k),'/Regular/'));
-        %             end
-        
-        %             if ~exist(strcat('NEEDED/ModelsTest/MODEL',num2str(j),num2str(k),'/Normalized/'),'dir')
-        %                 mkdir(strcat('NEEDED/ModelsTest/MODEL',num2str(j),num2str(k),'/Normalized/'));
-        %             end
-        %             if ~exist(strcat('NEEDED/ModelsTest/MODEL',num2str(j),num2str(k),'/Regular/'),'dir')
-        %                 mkdir(strcat('NEEDED/ModelsTest/MODEL',num2str(j),num2str(k),'/Regular/'));
-        %             end
+        TestNormFeatures = ((TestFeatures-mu))./sigma;
         
         save(strcat(TrainingFolderName,'/Features_','HNR_',num2str(mstimeList(j)),'ms_', CallNames{i}, '.mat'),'TrainNormFeatures')
-        %             save(strcat('NEEDED/ModelsTrain/MODEL',num2str(j),num2str(k),'/Regular/Features_',num2str(numCoeffsList(k)),'mfccs_',num2str(mstimeList(j)),'ms_FULL_', waveFile, '.mat'),'TrainNormFeatures')
+        save(strcat(TestingFolderName,'/Features_','HNR_',num2str(mstimeList(j)),'ms_', CallNames{i}, '.mat'),'TestNormFeatures')
         
-        
-        %             save(strcat('NEEDED/ModelsTest/MODEL',num2str(j),num2str(k),'/Normalized/Features_',num2str(numCoeffsList(k)),'mfccs_',num2str(mstimeList(j)),'ms_FULL_', waveFile, '.mat'),'TestNormFeatures')
-        %             save(strcat('NEEDED/ModelsTest/MODEL',num2str(j),num2str(k),'/Regular/Features_',num2str(numCoeffsList(k)),'mfccs_',num2str(mstimeList(j)),'ms_FULL_', waveFile, '.mat'),'TestNormFeatures')
     end
     
 end

@@ -1,12 +1,12 @@
 % feature exctraction
 function featureExtract_HPS()
-
 addpath('..\MatLabFiles')
-dataPath = char('../../../Data/MasterTraining');
-addpath(dataPath)
+dataPathTrain = char('../../../Data/MasterTraining');
+dataPathTest = char('../../../Data/MasterTesting');
+addpath(dataPathTrain)
+addpath(dataPathTest)
 
 fs = 96000;
-%CallNames = {'twitterCalls','pheeCalls','trillCalls'};
 CallNames      = {'peep','peepString','phee','trill', 'tsik','tsikString','twitter'};
 % I will send these files via email in case you guys need them
 % CallNames      = {'DebugFile1','DebugFile2'};
@@ -23,7 +23,7 @@ for j = 1:length(windowSizeList)
     
     %Need to clear matrix between each window size
     FullFeatures = [];
-
+    
     %Create directories needed to place data
     if ~exist(TrainingFolderNameNotNormalized,'dir')
         mkdir(TrainingFolderNameNotNormalized);
@@ -65,11 +65,23 @@ for j = 1:length(windowSizeList)
     save(strcat(TrainingFolderNormalized,'/Features_','HPS_',num2str(mstimeList(j)),'ms_NormalizationFactors.mat'),'NormalizationFactor')
     
     for i = 1:length(CallNames)
+        %Loading in Testing data to normalize
+        FileNameTest = strcat(dataPathTest,'\',CallNames{i},'CallsTestMaster.wav');
+        TestwaveIn = audioread(FileNameTest);
+        TestFeatures = HPSFeatures(TestwaveIn,wlist(j),3);
+        
+        %Loading in the Training data to normalize
         CurrentMat = load(strcat(TrainingFolderNameNotNormalized,'/Features_','HPS_',num2str(mstimeList(j)),'ms_', CallNames{i}, 'Not_Normalized.mat'));
         CurrentFeatures = CurrentMat.TrainFeatures;
-        %   normalize the data
+        
+        %normalize the data
         TrainNormFeatures = ((CurrentFeatures-mu))./sigma;
+        TestNormFeatures = ((TestFeatures-mu))./sigma;
+        
+        %Save off Normalized Training Data
         save(strcat(TrainingFolderNormalized,'/Normalized_Features_','HPS_',num2str(mstimeList(j)),'ms_', CallNames{i}, '.mat'),'TrainNormFeatures')
+        %Save off Normalized Testing Data
+        save(strcat(TestingFolderName,'/Normalized_Features_','HPS_',num2str(mstimeList(j)),'ms_', CallNames{i}, '.mat'),'TestNormFeatures')
     end
     
 end
