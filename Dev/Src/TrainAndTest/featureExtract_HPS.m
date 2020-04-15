@@ -20,7 +20,8 @@ mstimeList = windowSizeList * 10^3;
 for j = 1:length(windowSizeList)
     TrainingFolderNameNotNormalized = strcat('../../../Data/Features/Training/HPS/NotNormalized',num2str(j));
     TrainingFolderNormalized = strcat('../../../Data/Features/Training/HPS/Normalized',num2str(j));
-    
+    TestingFolderName  = strcat('../../../Data/Features/Testing/HPS',num2str(j));
+
     %Need to clear matrix between each window size
     FullFeatures = [];
     
@@ -83,7 +84,8 @@ for j = 1:length(windowSizeList)
         %Save off Normalized Testing Data
         save(strcat(TestingFolderName,'/Normalized_Features_','HPS_',num2str(mstimeList(j)),'ms_', CallNames{i}, '.mat'),'TestNormFeatures')
     end
-    
+    str = strcat('Just Finished .', num2str(j),'/',num2str(length(windowSizeList)));
+    disp(str)
 end
 
 
