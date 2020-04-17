@@ -34,6 +34,10 @@ for j = 1:length(windowSizeList)
         mkdir(TrainingFolderNormalized);
     end
     
+    if ~exist(TestingFolderName,'dir')
+        mkdir(TestingFolderName);
+    end
+    
     %This is the main loop it will go through each call and extract all of
     %the HPS features. It will build up a large full data set to compute
     %the z-score.
