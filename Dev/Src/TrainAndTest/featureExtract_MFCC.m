@@ -33,8 +33,9 @@ for k = 1:length(numCoeffsList)
         FullFeatures = [coeffsFull,deltaFull,deltaDeltaFull];
         
         %Dynamically computing z-score Normalization factors
-        mu = mean(FullFeatures);
-        sigma = std(FullFeatures);
+        FullFeatures(find(abs(FullFeatures) == inf)) = NaN;
+        mu = nanmean(FullFeatures(2:end));
+        sigma = nanstd(FullFeatures);
         NormalizationFactor.mu = mu;
         NormalizationFactor.sigma=sigma;
         
