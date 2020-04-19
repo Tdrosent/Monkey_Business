@@ -37,9 +37,11 @@ for p = 1:length(K)
 % ------------------------------------------------------------------------%
         peepNormTrain = load(NormalizedTrainCallsName{1});
         peepNormFullTrainData = peepNormTrain.TrainNormFeatures(:,:);
+        peepNormFullTrainData(isinf(abs(peepNormFullTrainData))) = NaN;
         
         peepNormTest = load(NormalizedTestCallsName{1});
         peepNormFullTestData = peepNormTest.TestNormFeatures(:,:);
+        peepNormFullTestData(isinf(abs(peepNormFullTestData))) = NaN;
         
         Call.peep.NormFullTrainData = peepNormFullTrainData;
         Call.peep.NormFullTestData  = peepNormFullTestData;
@@ -50,9 +52,11 @@ for p = 1:length(K)
 % ------------------------------------------------------------------------%
         peepStringNormTrain = load(NormalizedTrainCallsName{2});
         peepStringNormFullTrainData = peepStringNormTrain.TrainNormFeatures(:,:);
+        peepStringNormFullTrainData(isinf(abs(peepStringNormFullTrainData))) = NaN;
         
         peepStringNormTest = load(NormalizedTestCallsName{2});
         peepStringNormFullTestData = peepStringNormTest.TestNormFeatures(:,:);
+        peepStringNormFullTestData(isinf(abs(peepStringNormFullTestData))) = NaN;
         
         Call.peepString.NormFullTrainData = peepStringNormFullTrainData;
         Call.peepString.NormFullTestData  = peepStringNormFullTestData;
@@ -63,9 +67,11 @@ for p = 1:length(K)
 % ------------------------------------------------------------------------%
         pheeNormTrain = load(NormalizedTrainCallsName{3});
         pheeNormFullTrainData = pheeNormTrain.TrainNormFeatures(:,:);
+        pheeNormFullTrainData(isinf(abs(pheeNormFullTrainData))) =NaN;
         
         pheeNormTest = load(NormalizedTestCallsName{3});
         pheeNormFullTestData = pheeNormTest.TestNormFeatures(:,:);
+        pheeNormFullTestData(isinf(abs(pheeNormFullTestData)))=NaN;
         
         Call.phee.NormFullTrainData = pheeNormFullTrainData;
         Call.phee.NormFullTestData  = pheeNormFullTestData;
@@ -76,9 +82,11 @@ for p = 1:length(K)
 % ------------------------------------------------------------------------%
         trillNormTrain = load(NormalizedTrainCallsName{4});
         trillNormFullTrainData = trillNormTrain.TrainNormFeatures(:,:);
+        trillNormFullTrainData(isinf(abs(trillNormFullTrainData))) = NaN;
         
         trillNormTest = load(NormalizedTestCallsName{4});
         trillNormFullTestData = trillNormTest.TestNormFeatures(:,:);
+        trillNormFullTestData(isinf(abs(trillNormFullTestData))) = NaN;
         
         Call.trill.NormFullTrainData = trillNormFullTrainData;
         Call.trill.NormFullTestData  = trillNormFullTestData;
@@ -89,9 +97,11 @@ for p = 1:length(K)
 % ------------------------------------------------------------------------%
         tsikNormTrain = load(NormalizedTrainCallsName{5});
         tsikNormFullTrainData = tsikNormTrain.TrainNormFeatures(:,:);
+        tsikNormFullTrainData(isinf(abs(tsikNormFullTrainData))) = NaN;
         
         tsikNormTest = load(NormalizedTestCallsName{5});
         tsikNormFullTestData = tsikNormTest.TestNormFeatures(:,:);
+        tsikNormFullTestData(isinf(abs(tsikNormFullTestData))) = NaN;
         
         Call.tsik.NormFullTrainData = tsikNormFullTrainData;
         Call.tsik.NormFullTestData  = tsikNormFullTestData;
@@ -102,9 +112,11 @@ for p = 1:length(K)
 % ------------------------------------------------------------------------%
         tsikStringNormTrain = load(NormalizedTrainCallsName{6});
         tsikStringNormFullTrainData = tsikStringNormTrain.TrainNormFeatures(:,:);
+        tsikStringNormFullTrainData(isinf(abs(tsikStringNormFullTrainData))) = NaN;
         
         tsikStringNormTest = load(NormalizedTestCallsName{6});
         tsikStringNormFullTestData = tsikStringNormTest.TestNormFeatures(:,:);
+        tsikStringNormFullTestData(isinf(abs(tsikStringNormFullTestData))) = NaN;
         
         Call.tsikString.NormFullTrainData = tsikStringNormFullTrainData;
         Call.tsikString.NormFullTestData  = tsikStringNormFullTestData;
@@ -115,9 +127,11 @@ for p = 1:length(K)
 % ------------------------------------------------------------------------%
         twitterNormTrain = load(NormalizedTrainCallsName{6});
         twitterNormFullTrainData = twitterNormTrain.TrainNormFeatures(:,:);
+        twitterNormFullTrainData(isinf(abs(twitterNormFullTrainData))) = NaN;
         
         twitterNormTest = load(NormalizedTestCallsName{6});
         twitterNormFullTestData = twitterNormTest.TestNormFeatures(:,:);
+        twitterNormFullTestData(isinf(abs(twitterNormFullTestData))) = NaN;
         
         Call.twitter.NormFullTrainData = twitterNormFullTrainData;
         Call.twitter.NormFullTestData =twitterNormFullTestData;
@@ -240,9 +254,9 @@ for p = 1:length(K)
             end
             PeepVTrillPercentError.(BigPath(z).name) = PeepVTrillErr.(BigPath(z).name)/length(PredictedPeep1)*100;
             
-            %Peep Vs Tsik
+            %Peep Vs Tsik !!
             PredictedPeep1(:,1) = pdf(GMM.peep ,Call.peep.NormFullTestData);
-            PredictedPeep1(:,2) = pdf(GMM.trill,Call.tsik.NormFullTestData);
+            PredictedPeep1(:,2) = pdf(GMM.tsik ,Call.peep.NormFullTestData);
             for j = 1:length(PredictedPeep1)
                 if PredictedPeep1(j,1) < PredictedPeep1(j,2)
                     PeepVTsikErr.(BigPath(z).name) = PeepVTsikErr.(BigPath(z).name) +1;
@@ -251,8 +265,8 @@ for p = 1:length(K)
             PeepVTsikPercentError.(BigPath(z).name) = PeepVTsikErr.(BigPath(z).name)/length(PredictedPeep1)*100;
             
             %Peep Vs TsikString
-            PredictedPeep1(:,1) = pdf(GMM.peep ,Call.peep.NormFullTestData);
-            PredictedPeep1(:,2) = pdf(GMM.trill,Call.tsikString.NormFullTestData);
+            PredictedPeep1(:,1) = pdf(GMM.peep      ,Call.peep.NormFullTestData);
+            PredictedPeep1(:,2) = pdf(GMM.tsikString,Call.peep.NormFullTestData);
             for j = 1:length(PredictedPeep1)
                 if PredictedPeep1(j,1) < PredictedPeep1(j,2)
                     PeepVTsikStringErr.(BigPath(z).name) = PeepVTsikStringErr.(BigPath(z).name) +1;
@@ -261,8 +275,8 @@ for p = 1:length(K)
             PeepVTsikStringPercentError.(BigPath(z).name) = PeepVTsikStringErr.(BigPath(z).name)/length(PredictedPeep1)*100;
             
             %Peep Vs Twitter
-            PredictedPeep1(:,1) = pdf(GMM.peep ,Call.peep.NormFullTestData);
-            PredictedPeep1(:,2) = pdf(GMM.trill,Call.twitter.NormFullTestData);
+            PredictedPeep1(:,1) = pdf(GMM.peep   ,Call.peep.NormFullTestData);
+            PredictedPeep1(:,2) = pdf(GMM.twitter,Call.peep.NormFullTestData);
             for j = 1:length(PredictedPeep1)
                 if PredictedPeep1(j,1) < PredictedPeep1(j,2)
                     PeepVTwitterErr.(BigPath(z).name) = PeepVTwitterErr.(BigPath(z).name) +1;
@@ -431,7 +445,7 @@ for p = 1:length(K)
             
             %Trill Vs Tsik
             PredictedTrill1(:,1) = pdf(GMM.trill ,Call.trill.NormFullTestData);
-            PredictedTrill1(:,2) = pdf(GMM.tsik  ,Call.tsik.NormFullTestData);
+            PredictedTrill1(:,2) = pdf(GMM.tsik  ,Call.trill.NormFullTestData);
             for j = 1:length(PredictedTrill1)
                 if PredictedTrill1(j,1) < PredictedTrill1(j,2)
                     TrillVTsikErr.(BigPath(z).name) = TrillVTsikErr.(BigPath(z).name) +1;
@@ -440,8 +454,8 @@ for p = 1:length(K)
             TrillVTsikPercentError.(BigPath(z).name) = TrillVTsikErr.(BigPath(z).name)/length(PredictedTrill1)*100;
             
             %Trill Vs TsikString
-            PredictedTrill1(:,1) = pdf(GMM.trill ,Call.trill.NormFullTestData);
-            PredictedTrill1(:,2) = pdf(GMM.tsikString  ,Call.tsik.NormFullTestData);
+            PredictedTrill1(:,1) = pdf(GMM.trill       ,Call.trill.NormFullTestData);
+            PredictedTrill1(:,2) = pdf(GMM.tsikString  ,Call.trill.NormFullTestData);
             for j = 1:length(PredictedTrill1)
                 if PredictedTrill1(j,1) < PredictedTrill1(j,2)
                     TrillVTsikStringErr.(BigPath(z).name) = TrillVTsikStringErr.(BigPath(z).name) +1;
@@ -450,8 +464,8 @@ for p = 1:length(K)
             TrillVTsikStringPercentError.(BigPath(z).name) = TrillVTsikStringErr.(BigPath(z).name)/length(PredictedTrill1)*100;
             
             %Trill Vs Twitter
-            PredictedTrill1(:,1) = pdf(GMM.trill ,Call.trill.NormFullTestData);
-            PredictedTrill1(:,2) = pdf(GMM.twitter  ,Call.tsik.NormFullTestData);
+            PredictedTrill1(:,1) = pdf(GMM.trill    ,Call.trill.NormFullTestData);
+            PredictedTrill1(:,2) = pdf(GMM.twitter  ,Call.trill.NormFullTestData);
             for j = 1:length(PredictedTrill1)
                 if PredictedTrill1(j,1) < PredictedTrill1(j,2)
                     TrillVTwitterErr.(BigPath(z).name) = TrillVTwitterErr.(BigPath(z).name) +1;
@@ -567,7 +581,7 @@ for p = 1:length(K)
             
             %TsikString Vs Tsik
             PredictedTsikString1(:,1) = pdf(GMM.tsikString ,Call.tsikString.NormFullTestData);
-            PredictedTsikString1(:,2) = pdf(GMM.tsik      ,Call.tsikString.NormFullTestData);
+            PredictedTsikString1(:,2) = pdf(GMM.tsik       ,Call.tsikString.NormFullTestData);
             for j = 1:length(PredictedTsikString1)
                 if PredictedTsikString1(j,1) < PredictedTsikString1(j,2)
                     TsikStringVTsikErr.(BigPath(z).name) = TsikStringVTsikErr.(BigPath(z).name) +1;
@@ -630,7 +644,7 @@ for p = 1:length(K)
             
             %Twitter Vs Tsik
             PredictedTwitter1(:,1) = pdf(GMM.twitter ,Call.twitter.NormFullTestData);
-            PredictedTwitter1(:,2) = pdf(GMM.tsik   ,Call.twitter.NormFullTestData);
+            PredictedTwitter1(:,2) = pdf(GMM.tsik    ,Call.twitter.NormFullTestData);
             for j = 1:length(PredictedTwitter1)
                 if PredictedTwitter1(j,1) < PredictedTwitter1(j,2)
                     TwitterVTsikErr.(BigPath(z).name) = TwitterVTsikErr.(BigPath(z).name) +1;
